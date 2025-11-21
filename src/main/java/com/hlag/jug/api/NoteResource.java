@@ -41,18 +41,13 @@ public class NoteResource {
 	@GET
 	@Path("/{id}")
 	public Note get(@PathParam("id") Long id) {
-		return Note.findById(id);
+		return noteService.findNote(id);
 	}
 
 	@GET
 	@Path("/merge")
-	@Transactional
 	public Note merge(@QueryParam("id1") Long id1, @QueryParam("id2") Long id2) {
-		Note note1 =  Note.findById(id1);
-		Note note2 =  Note.findById(id2);
-		Note result = noteService.merge(note1, note2);
-		result.persist();
-		return result;
+		return noteService.merge(id1, id2);
 	}
 
 }
